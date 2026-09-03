@@ -37,7 +37,7 @@
 <script>const WA='573224079955';
 const firebaseConfig={apiKey:'AIzaSyB7kXhJ5zy5FMhmksPzdSleO1A7aWMbtu0',authDomain:'deboracatalogo.firebaseapp.com',projectId:'deboracatalogo',storageBucket:'deboracatalogo.firebasestorage.app',messagingSenderId:'552563622109',appId:'1:552563622109:web:ce43fbb7ca5f581c8cdb34'};
 let auth=null;let db=null;let currentRole='cliente';
-function initFirebase(){if(!window.firebase||auth)return;firebase.initializeApp(firebaseConfig);auth=firebase.auth();db=firebase.firestore();auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).finally(()=>auth.signOut());auth.onAuthStateChanged(user=>{if(!user)currentRole='cliente';else resolveRole(user).catch(()=>{currentRole='cliente'})})}
+function initFirebase(){if(!window.firebase||auth)return;const firebaseApp=firebase.initializeApp(firebaseConfig);auth=firebase.auth(firebaseApp);db=firebase.firestore(firebaseApp,'debora-catalogo');auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).finally(()=>auth.signOut());auth.onAuthStateChanged(user=>{if(!user)currentRole='cliente';else resolveRole(user).catch(()=>{currentRole='cliente'})})}
 window.addEventListener('load',initFirebase);
 const CART_KEY='debora-cart';
 let cart=JSON.parse(localStorage.getItem(CART_KEY)||'[]');
